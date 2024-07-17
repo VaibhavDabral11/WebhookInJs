@@ -132,3 +132,83 @@ In the given below webhook we pass the data in the form-data format:
 // add local server 
 ```
 In the above code formidable is use to add get data in the form format.
+In the below code we are calling create ticket inside a webhook.
+```@rubyasync function callGraphQlApi(inputData: any, query: any, token: any) {
+    try {
+      const response = await axios.post('http://localhost:4000/graphql', {
+        query: query,
+        variables: inputData
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          // 'Access-Control-Allow-Methods': 'Admin-Tickets'
+        }
+      });
+      console.log("----------------res-----------------", response)
+      console.log("-----------data-----", response.data)
+      console.log("-----------data1-----", response.data.data)
+      return response.data.data;
+    } catch (error) {
+      console.error('Error making GraphQL request:', error);
+      throw error;
+    }
+  }
+  const webhook = async (
+    req: any,
+    res: any
+  ) => {
+    try {
+      const form = formidable({ multiples: true });
+
+      const a = form.parse(req, async (err: any, fields: any, files: any) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send("Error parsing the form data");
+        }
+        console.log("--------------r--q reached-------");
+        console.log("Fields:", fields); // Form fields
+        if (fields) {
+          const intentString = fields.intent[0];
+          const intentObject = JSON.parse(intentString);
+          const parameters = intentObject.fulfillment.parameters;
+          console.log('-------------------ticket inputs-------------', parameters);
+          const ticketTitle = parameters.details["Ticket Title"];
+          const ticketDescription = parameters.details["Ticket Description"];
+
+          console.log("Ticket Title:", ticketTitle);
+          console.log("Ticket Description:", ticketDescription);
+          const inputData = {
+            input: {
+              categoryTypeId: 1,
+              description: ticketDescription,
+              priorityId: 1,
+              statusId: 1,
+              subject: ticketTitle
+            }
+          }
+          const query = gql`mutation CreateTicket($input: CreateTicketInput!) {
+  createTicket(input: $input) {
+    status
+    message
+    data
+  }
+}`;
+          const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ0OCwiaWF0IjoxNzIxMjE5NzY2LCJleHAiOjE3MjEzMDYxNjYsInN1YiI6IjQ0OCJ9.pAzkClGy2xVBEjGcj_UTmLvqmHv74mOYH2rYtDvrsmc';
+          const api = await callGraphQlApi(inputData, query, token);
+          console.log("----------import data------", inputData)
+          console.log("-------------------tt--------------", api)
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Something went wrong");
+    }
+  }
+  //http://localhost:4000/dynamicBotWebhook/webhook
+  app.post('/dynamicBotWebhook/webhook', webhook)```
+```
+```@ruby
+https://drive.google.com/file/d/1Id6QUq5gl2ZrPbZZn0UbVADoAvna0-UZ/view?usp=sharing
+```
+
