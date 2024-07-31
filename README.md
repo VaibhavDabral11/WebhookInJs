@@ -7,10 +7,14 @@ Mostly common case is post method in webhooks.
 Here’s a step-by-step breakdown of the process of registering a webhook in GitHub and handling events:
 
 ![image](https://github.com/user-attachments/assets/40fb8fce-d284-42cc-8ef8-3673109d5aa8)
+
 ![image](https://github.com/user-attachments/assets/2a53e566-fa07-4113-85f6-ea4872ddd154)
 
 ![image](https://github.com/user-attachments/assets/e059c6f6-7cba-428a-9a7b-d1f752bfda01)
+
 ![image](https://github.com/user-attachments/assets/209b1ce1-6641-4e6d-aa1c-da76f6b674f7)
+
+![image](https://github.com/user-attachments/assets/229753af-a11e-4dec-9ee7-4baa7c6ac5d0)
 
 ```@ruby
 https://youtu.be/z-BfzrRJuD0?si=jg3_DDKH3WixgiUX 
