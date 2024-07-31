@@ -1,6 +1,14 @@
 # WebhookInJs
 
-webhooks are use to intigrate third party application. 
+Webhook is a callback method in which one server request to another server.We does not need to mantain connection for response. webhooks are use to intigrate third party application.
+
+Mostly common case is post method in webhooks.
+
+Here’s a step-by-step breakdown of the process of registering a webhook in GitHub and handling events:
+
+![image](https://github.com/user-attachments/assets/40fb8fce-d284-42cc-8ef8-3673109d5aa8)
+![image](https://github.com/user-attachments/assets/2a53e566-fa07-4113-85f6-ea4872ddd154)
+
 ![image](https://github.com/user-attachments/assets/e059c6f6-7cba-428a-9a7b-d1f752bfda01)
 ![image](https://github.com/user-attachments/assets/209b1ce1-6641-4e6d-aa1c-da76f6b674f7)
 
